@@ -5,5 +5,6 @@ export const Valid_Routes ={
     LOGIN: "/login",
     SIGNUP: "/signup",
     UPLOAD: "/upload",
+    IMAGE: "/images/:imageId"
 
 };
