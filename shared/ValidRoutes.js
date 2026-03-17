@@ -3,7 +3,7 @@
 export const Valid_Routes ={
    HOME: "/",
     LOGIN: "/login",
-    SIGNUP: "/signup",
+    REGISTER: "/register",
     UPLOAD: "/upload",
     IMAGE: "/images/:imageId"
 

@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import { useParams } from "react-router";
 
 import {ImageNameEditor} from "./ImageNameEditor.jsx";
-export function ImageDetails() {
+export function ImageDetails({ authToken }) {
 
     const[fetch_data,set_Fech_data] = useState(true);
     const[error_name,set_error]= useState("");
@@ -17,7 +17,11 @@ export function ImageDetails() {
         const url=`/api/images/${imageId}`;
         set_Fech_data(true);
         try{
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
             if(!response.ok){
                throw new Error(`Error: HTTP ${response.status} ${response.statusText}`);
             }
@@ -32,7 +36,7 @@ export function ImageDetails() {
         }
         }
         fetchData();
-    }, [imageId]);
+    }, [imageId, authToken]);
     if(fetch_data === true){
         return(
             <p>Loading....</p>
@@ -56,7 +60,8 @@ export function ImageDetails() {
             <ImageNameEditor
                 imageId={image._id}
                 initialValue={image.name}
-                onNameUpdate={(newName) => { _setImage({...image, name: newName});}}
+                onNameUpdate={(newName) => { _setImage({...image, name: newName}); }}
+                authToken={authToken}
             />
             <img className="ImageDetails-img" src={image.src} alt={image.name} />
         </>

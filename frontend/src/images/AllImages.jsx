@@ -3,7 +3,7 @@ import { MainLayout } from "../MainLayout.jsx";
 // import { fetchAll } from "./ImageFetcher.js";
 import { ImageGrid } from "./ImageGrid.jsx";
 
-export function AllImages() {
+export function AllImages({ authToken }) {
 
     const[fetch_data,set_Fech_data] = useState(true);
     const[error_name,set_error]= useState("");
@@ -15,7 +15,11 @@ export function AllImages() {
         const url="/api/images";
         set_Fech_data(true);
         try{
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            });
             if(!response.ok){
                throw new Error(`Error: HTTP ${response.status} ${response.statusText}`);
             }
@@ -29,7 +33,7 @@ export function AllImages() {
         }
         }
         fetchData();
-    }, []);
+    }, [authToken]);
 
     if(fetch_data === true){
             return(

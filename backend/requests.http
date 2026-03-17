@@ -43,3 +43,27 @@ Content-Type: application/json
 
     "newName": "Miguels image"
 }
+### Register a new user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password"
+}
+### Login
+POST http://localhost:3000/api/auth/tokens
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "password"
+}
+
+### Should get 401 - no token
+GET http://localhost:3000/api/images
+
+### Should work - with token
+GET http://localhost:3000/api/images
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNzczNTMwNzc4LCJleHAiOjE3NzM2MTcxNzh9.3vGDcnVBs69Kuc0gq1vDobfr3yY_NpZHO_GNqu5J09k

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function ImageNameEditor({ imageId, initialValue, onNameUpdate }) {
+export function ImageNameEditor({ imageId, initialValue, onNameUpdate, authToken }) {
     const [isEditingName, setIsEditingName] = useState(false);
     const [nameInput, setNameInput] = useState(initialValue || "");
 
@@ -20,6 +20,7 @@ export function ImageNameEditor({ imageId, initialValue, onNameUpdate }) {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authToken}`
                 },
                 body: JSON.stringify({ newName: nameInput }),
 
